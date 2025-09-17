@@ -4,7 +4,6 @@ import { NotificationEntity } from './entities/notification.entity';
 import { Repository } from 'typeorm';
 import { SendNotificationInput } from './dto/notification.input';
 
-
 @Injectable()
 export class NotificationService {
   constructor(

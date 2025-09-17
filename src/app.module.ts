@@ -15,6 +15,7 @@ import { ConfigService } from '@nestjs/config';
 import { ConfigSchema } from '@/common/config/schema';
 import { NotificationModule } from '@/notification/notification.module';
 import { DatabaseModule } from '@/common/database/database.module';
+
 @Module({
   imports: [
     GraphQLModule.forRootAsync<ApolloDriverConfig>({
@@ -35,7 +36,6 @@ import { DatabaseModule } from '@/common/database/database.module';
         // csrfPrevention: false,
       }),
     }),
-
     HealthModule,
     ConfigModule,
     NotificationModule,
