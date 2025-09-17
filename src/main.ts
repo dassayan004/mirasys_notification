@@ -17,6 +17,6 @@ async function bootstrap() {
 
   await app.listen(port);
   Logger.log(`🚀 Application is running on: ${baseUrl}`);
-  Logger.log(`🤖 Apollo is running on: ${baseUrl}/graphql`);
+  Logger.log(`📦 GraphQL is running on: ${baseUrl}/graphql`);
 }
 bootstrap();
