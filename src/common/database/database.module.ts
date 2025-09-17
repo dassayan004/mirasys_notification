@@ -9,7 +9,7 @@ import { entities } from './entities';
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: (configService: ConfigService<ConfigSchema, true>) => ({
+      useFactory: (_configService: ConfigService<ConfigSchema, true>) => ({
         type: 'sqlite',
         database: 'db.sqlite',
         entities,

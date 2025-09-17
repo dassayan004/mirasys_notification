@@ -1,5 +1,6 @@
 import { NotificationChannel, NotificationStatus } from '@/common/enum';
-import { ObjectType, Field, ID } from '@nestjs/graphql';
+import { ObjectType, Field, GraphQLISODateTime } from '@nestjs/graphql';
+import { GraphQLUUID } from 'graphql-scalars';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -10,7 +11,7 @@ import {
 @ObjectType()
 @Entity('notifications')
 export class NotificationEntity {
-  @Field(() => ID)
+  @Field(() => GraphQLUUID)
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -42,7 +43,7 @@ export class NotificationEntity {
   @Column({ nullable: true })
   error?: string;
 
-  @Field()
+  @Field(() => GraphQLISODateTime)
   @CreateDateColumn()
   createdAt: Date;
 

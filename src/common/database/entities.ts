@@ -1,6 +1,4 @@
 import { NotificationEntity } from '@/notification/entities/notification.entity';
-import { EntitySchema, MixedList } from 'typeorm';
+import { EntityClassOrSchema } from '@nestjs/typeorm/dist/interfaces/entity-class-or-schema.type';
 
-export const entities: MixedList<Function | string | EntitySchema<any>> = [
-  NotificationEntity,
-];
+export const entities: EntityClassOrSchema[] = [NotificationEntity];

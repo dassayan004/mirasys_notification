@@ -27,7 +27,7 @@ type NotificationEntity {
   channel: NotificationChannel!
   createdAt: DateTime!
   error: String
-  id: ID!
+  id: UUID!
   message: String!
   recipient: String!
   status: NotificationStatus!
@@ -80,6 +80,11 @@ input TelegramOptionsInput {
   disableWebPagePreview: Boolean
   parseMode: String
 }
+
+"""
+A field whose value is a generic Universally Unique Identifier: https://en.wikipedia.org/wiki/Universally_unique_identifier.
+"""
+scalar UUID
 
 input WhatsAppOptionsInput {
   mediaUrl: String
