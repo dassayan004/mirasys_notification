@@ -1,0 +1,52 @@
+import { NotificationChannel, NotificationStatus } from '@/common/enum';
+import { ObjectType, Field, ID } from '@nestjs/graphql';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+} from 'typeorm';
+
+@ObjectType()
+@Entity('notifications')
+export class NotificationEntity {
+  @Field(() => ID)
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
+  @Field(() => NotificationChannel)
+  @Column({ type: 'text', enum: NotificationChannel })
+  channel: NotificationChannel;
+
+  @Field()
+  @Column()
+  recipient: string;
+
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  subject?: string;
+
+  @Field()
+  @Column()
+  message: string;
+
+  @Field(() => NotificationStatus)
+  @Column({
+    type: 'text',
+    enum: NotificationStatus,
+    default: NotificationStatus.PENDING,
+  })
+  status: NotificationStatus;
+
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  error?: string;
+
+  @Field()
+  @CreateDateColumn()
+  createdAt: Date;
+
+  constructor(partial: Partial<NotificationEntity>) {
+    Object.assign(this, partial);
+  }
+}

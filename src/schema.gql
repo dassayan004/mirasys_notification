@@ -1,0 +1,86 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+input DiscordOptionsInput {
+  avatarUrl: String
+  username: String
+}
+
+type Mutation {
+  sendNotification(sendNotification: SendNotificationInput!): NotificationEntity!
+}
+
+enum NotificationChannel {
+  DISCORD
+  ONESIGNAL
+  TELEGRAM
+  WHATSAPP
+}
+
+type NotificationEntity {
+  channel: NotificationChannel!
+  createdAt: DateTime!
+  error: String
+  id: ID!
+  message: String!
+  recipient: String!
+  status: NotificationStatus!
+  subject: String
+}
+
+enum NotificationStatus {
+  FAILED
+  PENDING
+  SENT
+}
+
+input OneSignalOptionsInput {
+  includePlayerIds: [String!]
+  platforms: [OneSignalPlatform!]
+}
+
+enum OneSignalPlatform {
+  ANDROID_PUSH
+  CHROME_EXTENSION_PUSH
+  CHROME_PUSH
+  EMAIL
+  FIREFOX_PUSH
+  FIREOS_PUSH
+  HUAWEI_PUSH
+  IOS_PUSH
+  MACOS_PUSH
+  SAFARI_LEGACY_PUSH
+  SAFARI_PUSH
+  SMS
+  WINDOWS_PUSH
+}
+
+type Query {
+  notifications: [NotificationEntity!]!
+}
+
+input SendNotificationInput {
+  channel: NotificationChannel!
+  discord: DiscordOptionsInput
+  message: String!
+  oneSignal: OneSignalOptionsInput
+  subject: String
+  telegram: TelegramOptionsInput
+  to: String!
+  whatsapp: WhatsAppOptionsInput
+}
+
+input TelegramOptionsInput {
+  disableWebPagePreview: Boolean
+  parseMode: String
+}
+
+input WhatsAppOptionsInput {
+  mediaUrl: String
+}
