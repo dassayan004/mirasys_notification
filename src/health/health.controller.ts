@@ -32,8 +32,8 @@ export class HealthController {
           thresholdPercent: 10,
           path: '/',
         }),
-      async () =>
-        await this.http.pingCheck('app_health', 'http://mirasys_frnt.local/'),
+      // async () =>
+      //   await this.http.pingCheck('app_health', 'http://mirasys_frnt.local/'),
     ]);
   }
 }
