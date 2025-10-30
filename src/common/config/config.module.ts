@@ -12,4 +12,4 @@ import { configSchema } from './schema';
     }),
   ],
 })
-export class ConfigModule {}
+export class AppConfigModule {}

@@ -10,7 +10,7 @@ import {
 import { APP_FILTER } from '@nestjs/core';
 import { GrapghQLExceptionFilter } from '@/common/filters/exception.filter';
 import { HealthModule } from '@/health/health.module';
-import { ConfigModule } from '@/common/config/config.module';
+import { AppConfigModule } from '@/common/config/config.module';
 import { ConfigService } from '@nestjs/config';
 import { ConfigSchema } from '@/common/config/schema';
 import { NotificationModule } from '@/notification/notification.module';
@@ -20,7 +20,6 @@ import { DatabaseModule } from '@/common/database/database.module';
   imports: [
     GraphQLModule.forRootAsync<ApolloDriverConfig>({
       driver: ApolloDriver,
-      imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (configService: ConfigService<ConfigSchema, true>) => ({
         introspection: true,
@@ -37,7 +36,7 @@ import { DatabaseModule } from '@/common/database/database.module';
       }),
     }),
     HealthModule,
-    ConfigModule,
+    AppConfigModule,
     NotificationModule,
     DatabaseModule,
   ],
