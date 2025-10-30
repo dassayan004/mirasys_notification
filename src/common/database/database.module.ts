@@ -8,10 +8,15 @@ import { entities } from './entities';
   imports: [
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],
-      useFactory: (_configService: ConfigService<ConfigSchema, true>) => ({
-        type: 'sqlite',
-        database: 'db.sqlite',
+      useFactory: (configService: ConfigService<ConfigSchema, true>) => ({
+        type: 'postgres',
+        host: configService.getOrThrow('POSTGRES_HOST'),
+        port: configService.getOrThrow<number>('POSTGRES_PORT'),
+        username: configService.getOrThrow('POSTGRES_USER'),
+        password: configService.getOrThrow('POSTGRES_PASSWORD'),
+        database: configService.getOrThrow('POSTGRES_DB'),
         entities,
+        ssl: true,
         synchronize: true,
       }),
     }),

@@ -16,7 +16,7 @@ export class NotificationEntity {
   id: string;
 
   @Field(() => NotificationChannel)
-  @Column({ type: 'text', enum: NotificationChannel })
+  @Column({ type: 'enum', enum: NotificationChannel })
   channel: NotificationChannel;
 
   @Field()
@@ -33,7 +33,7 @@ export class NotificationEntity {
 
   @Field(() => NotificationStatus)
   @Column({
-    type: 'text',
+    type: 'enum',
     enum: NotificationStatus,
     default: NotificationStatus.PENDING,
   })

@@ -1,39 +1,39 @@
-# ---- Build Stage ----
-FROM node:20-alpine AS builder
-
+# ---- Base Image ----
+FROM node:20-alpine AS base
 WORKDIR /app
 
-# Install build tools for sqlite
-RUN apk add --no-cache python3 make g++
+# Enable Corepack (for PNPM)
+RUN corepack enable
 
-# Copy package files and install dependencies
-COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile
+# Copy only package files for dependency install
+COPY package.json pnpm-lock.yaml ./
+
+# ---- Build Stage ----
+FROM base AS builder
+
+# Install dependencies
+RUN pnpm install --frozen-lockfile
 
 # Copy source files
 COPY . .
 
-# Build
-RUN yarn build
+# Build the project
+RUN pnpm run build
 
 # ---- Production Stage ----
 FROM node:20-alpine AS production
-
 WORKDIR /app
-
-# Install runtime dependencies
-RUN apk add --no-cache sqlite
-
-# Copy built app and node_modules
-COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package.json ./
-COPY --from=builder /app/db.sqlite ./
-
 ENV NODE_ENV=production
-ENV BASE_URL=http://localhost:8000
-ENV PORT=8000
+
+# Enable Corepack for PNPM runtime if needed
+RUN corepack enable
+
+# Copy only necessary runtime files
+COPY --from=builder /app/package.json ./
+COPY --from=builder /app/pnpm-lock.yaml ./
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/dist ./dist
+
 EXPOSE 8000
 
-CMD ["node", "dist/main"]
-    
+CMD ["node", "dist/main.js"]

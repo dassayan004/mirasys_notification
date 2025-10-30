@@ -16,20 +16,20 @@ export const configSchema = z.object({
       return num;
     }),
 
-  // POSTGRES_HOST: z.string().min(1, 'POSTGRES_HOST is required'),
-  // POSTGRES_PORT: z
-  //   .string()
-  //   .default('5432')
-  //   .transform((val) => {
-  //     const num = Number(val);
-  //     if (Number.isNaN(num) || num <= 0) {
-  //       throw new Error('POSTGRES_PORT must be a valid number');
-  //     }
-  //     return num;
-  //   }),
-  // POSTGRES_DB: z.string().min(1, 'POSTGRES_DB is required'),
-  // POSTGRES_USER: z.string().min(1, 'POSTGRES_USER is required'),
-  // POSTGRES_PASSWORD: z.string().min(1, 'POSTGRES_PASSWORD is required'),
+  POSTGRES_HOST: z.string().min(1, 'POSTGRES_HOST is required'),
+  POSTGRES_PORT: z
+    .string()
+    .default('5432')
+    .transform((val) => {
+      const num = Number(val);
+      if (Number.isNaN(num) || num <= 0) {
+        throw new Error('POSTGRES_PORT must be a valid number');
+      }
+      return num;
+    }),
+  POSTGRES_DB: z.string().min(1, 'POSTGRES_DB is required'),
+  POSTGRES_USER: z.string().min(1, 'POSTGRES_USER is required'),
+  POSTGRES_PASSWORD: z.string().min(1, 'POSTGRES_PASSWORD is required'),
 });
 
 export type ConfigSchema = z.infer<typeof configSchema>;
